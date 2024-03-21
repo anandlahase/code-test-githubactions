@@ -30,14 +30,14 @@ jobs:
           branch: 'update-${{ github.event.inputs.choice }}-inputs'
 
       - name: Create prod directories if not exist
-  run: |
-    for dir in extraVars inventory deploymentManifest; do
-      if [ ! -d "prod/$dir" ]; then
-        mkdir -p "prod/$dir"
-        touch "prod/$dir/README.md"
-      fi
-    done
-    ls -l prod
+        run: |
+          for dir in extraVars inventory deploymentManifest; do
+            if [ ! -d "prod/$dir" ]; then
+            mkdir -p "prod/$dir"
+            touch "prod/$dir/README.md"
+          fi
+          done
+          ls -l prod
       
       - name: Copy files to prod directories
         run: |

@@ -46,7 +46,7 @@ jobs:
               mkdir -p $(pwd)/prod/deploymentManifest
               touch $(pwd)/prod/deploymentManifest/README.md
           fi
-          ls -l $(pwd)/prod 
+          ls -l $(pwd)/prod
 
 
       - name: Copy files to prod directories

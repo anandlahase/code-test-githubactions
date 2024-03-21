@@ -5,11 +5,12 @@ on:
     inputs:
       choice:
         # type: choice
+        required: false
         description: Select Value
-        options:
-          - extraVars
-          - inventory
-          - deploymentManifest
+          options:
+            extraVars: extraVars
+            inventory: inventory
+            deploymentManifest: deploymentManifest
 
 jobs:
   update_and_merge:

@@ -41,7 +41,8 @@ jobs:
       - name: Copy files to prod directories
         run: |
           for file in $(pwd)/non-prod/${{ github.event.inputs.choice }}/*.json; do
-            cp "$file" "$(pwd)/prod/${{ github.event.inputs.choice }}/$(basename $file)"
+            # cp "$file" "$(pwd)/prod/${{ github.event.inputs.choice }}/$(basename $file)"
+            rsync -av --update "$(pwd)/non-prod/${{ github.event.inputs.choice }}/" "$(pwd)/prod/${{ github.event.inputs.choice }}/"
           done
           ls -l $(pwd)/prod/${{ github.event.inputs.choice }}
       

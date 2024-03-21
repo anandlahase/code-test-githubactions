@@ -54,3 +54,43 @@ jobs:
           default_author: github_actions
           message: 'fix: copy files to prod directory'
           new_branch: 'update-${{ github.event.inputs.choice }}-inputs'
+
+      - name: Git Push
+        run: git push origin update-${{ github.event.inputs.choice }}-inputs
+
+      - name: Create Pull Request
+        id: create_pr
+        uses: repo-sync/pull-request@v2
+        with:
+          destination_branch: main
+          source_branch: update-${{ github.event.inputs.choice }}-inputs
+          pr_title: "Automated update of ${{ github.event.inputs.choice }} dropdown inputs"
+          github_token: ${{ secrets.ANAND_TEST_TOKEN }}
+          pr_label: "automerge"
+
+      - name: Approve Pull Request
+        if: steps.create_pr.outcome == 'success'
+        id: approve_pr
+        uses: juliangruber/approve-pull-request-action@v2.0.0
+        with:
+          github-token: ${{ secrets.ANIKET_TOKEN }}
+          number: ${{ steps.create_pr.outputs.pr_number }}
+          repo: ${{ github.repository }}
+
+      - name: Merge Pull Request
+        if: steps.create_pr.outcome == 'success' && steps.approve_pr.outcome == 'success'
+        id: merge_pr
+        uses: pascalgn/automerge-action@v0.15.5
+        env:
+          GITHUB_TOKEN: ${{ secrets.ANIKET_TOKEN }}
+          PULL_REQUEST: ${{ github.repository }}/${{ steps.create_pr.outputs.pr_number }}
+          UPDATE_METHOD: merge
+
+      - name: Delete Merge Branch
+        if: steps.merge_pr.outcome == 'success'
+        uses: dawidd6/action-delete-branch@v3
+        with:
+          github_token: ${{ secrets.ANAND_TEST_TOKEN }}
+          owner: ${{ github.repository_owner }}
+          repository: ${{ github.event.repository.name }}
+          branches: ${{ steps.create_branch.outputs.branch }}

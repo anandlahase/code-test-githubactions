@@ -93,4 +93,4 @@ jobs:
           github_token: ${{ secrets.ANAND_TESTING_TOKEN }}
           owner: ${{ github.repository_owner }}
           repository: ${{ github.event.repository.name }}
-          branches: ${{ steps.create_branch.outputs.branch }}
+          branches: update-${{ github.event.inputs.choice }}-inputs

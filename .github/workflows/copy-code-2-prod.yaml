@@ -49,8 +49,8 @@ jobs:
       - name: Create, push new branch with template changes
         uses: EndBug/add-and-commit@v9
         with:
-          cwd: '$(pwd)/prod/${{ github.event.inputs.choice }}'
+          cwd: '$(pwd)/prod/${{ github.event.inputs.choice }}/$(basename $file)'
           add: '.'
           default_author: github_actions
-          message: 'Copy files to prod directory'
+          message: 'fix: copy files to prod directory'
           new_branch: 'update-${{ github.event.inputs.choice }}-inputs'

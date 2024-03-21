@@ -36,7 +36,6 @@ jobs:
             touch "prod/$dir/README.md"
           fi
           done
-          ls -l prod
       
       - name: Copy files to prod directories
         run: |

@@ -4,13 +4,13 @@ on:
   workflow_dispatch:
     inputs:
       choice:
-        # type: choice
+        type: choice
+        description: 'Select input to update'
         required: false
-        description: Select Value
-          options:
-            extraVars: extraVars
-            inventory: inventory
-            deploymentManifest: deploymentManifest
+        options:
+          - extraVars
+          - inventory
+          - deploymentManifest
 
 jobs:
   update_and_merge:

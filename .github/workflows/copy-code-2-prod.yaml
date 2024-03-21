@@ -26,24 +26,24 @@ jobs:
       - name: Create prod directories if not exist
         run: |
             for dir in extraVars inventory deploymentManifest; do
-                if [ ! -d "prod/$dir" ]; then
-                    mkdir -p "prod/$dir"
-                    touch "prod/$dir/README.md"
+                if [ ! -d "$(pwd)/prod/$dir" ]; then
+                    mkdir -p "$(pwd)/prod/$dir"
+                    touch "$(pwd)/prod/$dir/README.md"
                 fi
             done
             ls -l prod
             
       - name: Copy files to prod directories
         run: |
-          for file in $GITHUB_WORKSPACE/non-prod/${{ github.event.inputs.choice }}/*.json; do
-            cp "$file" "$GITHUB_WORKSPACE/prod/${{ github.event.inputs.choice }}/"
+          for file in $(pwd)/non-prod/${{ github.event.inputs.choice }}/*.json; do
+            cp "$file" "$(pwd)/prod/${{ github.event.inputs.choice }}/"
           done
-          ls -l $GITHUB_WORKSPACE/prod/${{ github.event.inputs.choice }}
+          ls -l $(pwd)/prod/${{ github.event.inputs.choice }}
           
       - name: Create, push new branch with template changes
         uses: EndBug/add-and-commit@v9
         with:
-          cwd: './files_repo/prod/${{ github.event.inputs.choice }}'
+          cwd: '$(pwd)/prod/${{ github.event.inputs.choice }}'
           add: '.'
           default_author: github_actions
           message: 'Copy files to prod directory'

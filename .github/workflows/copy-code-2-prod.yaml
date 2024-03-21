@@ -5,9 +5,7 @@ on:
     inputs:
       choice:
         type: choice
-        description: 'Select input to update'
-        # required: true
-        # default: 'extraVars'
+        description: Select Value
         options:
           - extraVars
           - inventory

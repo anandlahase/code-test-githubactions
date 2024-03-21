@@ -45,7 +45,7 @@ jobs:
           done
           ls -l $(pwd)/prod/${{ github.event.inputs.choice }}
       
-      - name: Create, push new branch with template changes
+      - name: add and commit changes
         uses: EndBug/add-and-commit@v9
         with:
           cwd: 'prod/${{ github.event.inputs.choice }}'

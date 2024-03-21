@@ -51,7 +51,7 @@ jobs:
 
       - name: Copy files to prod directories
         run: |
-          for file in $(pwd)/non-prod/${{ github.event.inputs.choice }}/*.json; do
-            cp "$file" "$(pwd)/prod/${{ github.event.inputs.choice }}/$(basename $file)"
+          for file in $GITHUB_WORKSPACE/non-prod/${{ github.event.inputs.choice }}/*.json; do
+            cp "$file" "$GITHUB_WORKSPACE/prod/${{ github.event.inputs.choice }}/"
           done
-          ls -l $(pwd)/prod/${{ github.event.inputs.choice }}
+          ls -l $GITHUB_WORKSPACE/prod/${{ github.event.inputs.choice }}

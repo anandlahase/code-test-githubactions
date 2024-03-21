@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       choice:
-        type: choice
+        # type: choice
         description: Select Value
         options:
           - extraVars
